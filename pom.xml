@@ -28,6 +28,11 @@
     		<artifactId>camel-spring-javaconfig</artifactId>
     		<version>2.13.2</version>
     	</dependency>
+    	<dependency>
+    		<groupId>org.apache.camel</groupId>
+    		<artifactId>camel-sql</artifactId>
+    		<version>2.13.2</version>
+    	</dependency>
     	
     	<dependency>
     		<groupId>org.apache.camel</groupId>
@@ -254,6 +259,13 @@
 		</dependency>
 
 		<!-- TESTING -->
+		<!-- derby in memory database for testing only -->
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.10.2.0</version>
+			<scope>test</scope>
+		</dependency> 
         <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
