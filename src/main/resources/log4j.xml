@@ -5,7 +5,7 @@
 
   <!-- Appenders -->
 	<appender name="LOGFILE" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="C:/dev/logs/order-fulfillment-processor.log" />
+		<param name="file" value="C:/dev/My Software/fulfillmentcenter1/order-fulfillment-processor.log" />
 		<layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%p] %c - %m%n"/>
         </layout>

@@ -1,6 +1,8 @@
 package com.pluralsight.orderfulfillment.config;
 
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * Main application configuration for the order fulfillment processor.
