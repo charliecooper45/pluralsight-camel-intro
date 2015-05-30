@@ -16,8 +16,13 @@
 	<version>1.0-SNAPSHOT</version>
 
     <dependencies>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.6</version>
+		</dependency>    
+		
     	<!-- APACHE CAMEL -->
-    	
     	<dependency>
     		<groupId>org.apache.camel</groupId>
     		<artifactId>camel-spring</artifactId>
@@ -384,6 +389,23 @@
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
 					<wtpversion>2.0</wtpversion>
+				</configuration>
+			</plugin>
+			<!-- plugin to generate source code from the XSD we have defined -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<packageName>com.pluralsight.orderfulfillment.generated</packageName>
 				</configuration>
 			</plugin>
 		</plugins>

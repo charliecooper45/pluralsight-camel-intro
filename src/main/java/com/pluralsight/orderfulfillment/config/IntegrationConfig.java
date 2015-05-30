@@ -2,6 +2,7 @@ package com.pluralsight.orderfulfillment.config;
 
 import javax.inject.Inject;
 
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.sql.SqlComponent;
 import org.apache.camel.spring.javaconfig.CamelConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -44,8 +45,8 @@ public class IntegrationConfig extends CamelConfiguration {
 	    * @return
 	    */
 	   @Bean
-	   public org.apache.camel.builder.RouteBuilder newWebsiteOrderRoute() {
-	      return new org.apache.camel.builder.RouteBuilder() {
+	   public RouteBuilder newWebsiteOrderRoute() {
+	      return new RouteBuilder() {
 
 	         @Override
 	         public void configure() throws Exception {
@@ -55,6 +56,8 @@ public class IntegrationConfig extends CamelConfiguration {
 	                        + "select id from orders.\"order\" where status = '" + OrderStatus.NEW.getCode() + "'"
 	                        + "?" + "consumer.onConsume=update orders.\"order\" set status = '" + OrderStatus.PROCESSING.getCode()
 	                        + "' where id = :#id").
+	                        // route exchange to this bean`s method
+	                        beanRef("orderItemMessageTranslator", "transformToOrderItemMessage").
                 to("log:com.pluralsight.orderfulfillment.order?level=INFO");
 	         }
 	      };
