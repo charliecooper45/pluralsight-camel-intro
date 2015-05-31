@@ -168,4 +168,31 @@ public class IntegrationConfig extends CamelConfiguration {
 				 }
 	      };
 	   }
+	   
+	   /**
+	    * Route builder to implement production to a RESTful web service. This route
+	    * will first consume a message from the FC1_FULFILLMENT_REQUEST ActiveMQ
+	    * queue. The message body will be an order in XML format. The message will
+	    * then be passed to the fulfillment center one processor where it will be
+	    * transformed from the XML to JSON format. Next, the message header content
+	    * type will be set as JSON format and a message will be posted to the
+	    * fulfillment center one RESTful web service. If the response is success,
+	    * the route will be complete. If not, the route will error out.
+	    * 
+	    * @return
+	    */
+	   @Bean
+	   public RouteBuilder fulfillmentCenterOneRouter() {
+	      return new RouteBuilder() {
+	         @Override
+	         public void configure() throws Exception {
+	            from("activemq:queue:FC1_FULFILLMENT_REQUEST")
+	                  .beanRef("fulfillmentCenterOneProcessor",
+	                        "transformToOrderRequestMessage")
+	                  .setHeader(org.apache.camel.Exchange.CONTENT_TYPE,
+	                        constant("application/json"))
+	                  .to("http4://localhost:8090/services/orderFulfillment/processOrders");
+	         }
+	      };
+	   }
 }
